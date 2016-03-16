@@ -1,0 +1,65 @@
+
+allprojects {
+  project.group = 'org.nand2tetris'
+  project.version = '2.5.7'
+}
+
+subprojects {
+  apply plugin: "java"
+
+  tasks.withType(JavaCompile) { 
+    sourceCompatibility = "1.4"
+    targetCompatibility = "1.4" 
+  }
+
+  repositories {
+      mavenCentral()
+  }
+}
+
+project(':HackGUI') {
+  dependencies {
+    compile project(':Hack')
+  }
+}
+
+project(':Compilers') {
+  dependencies {
+    compile project(':Hack')
+  }
+}
+
+project(':Simulators') {
+  dependencies {
+    compile project(':Hack')
+    compile project(':Compilers')
+  }
+}
+
+project(':SimulatorsGUI') {
+  dependencies {
+    compile project(':Simulators')
+    compile project(':HackGUI')
+  }
+}
+
+project(':BuiltInChips') {
+  dependencies {
+    compile project(':Simulators')
+    compile project(':HackGUI')
+    compile project(':SimulatorsGUI')
+  }
+}
+
+project(':BuiltInVMCode') {
+  dependencies {
+    compile project(':Simulators')
+  }
+}
+
+project(':MainClasses') {
+  dependencies {
+    compile project(':HackGUI')
+    compile project(':SimulatorsGUI')
+  }
+}
