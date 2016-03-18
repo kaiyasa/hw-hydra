@@ -1,0 +1,51 @@
+
+
++ == OR
+* == AND
+! == NOT
+
+Basic identities
+     a +  0 = a          a *  0 = 0
+     a +  1 = 1          a *  1 = a
+     a +  a = a          a *  a = a
+     a + !a = 1          a * !a = 0
+
+     !!a = a
+
+Commutative property
+
+     a + b = b + a       a * b = b * a
+
+Associative property
+
+     (a + b) + c = a + (b + c)    (a * b) * c = a * (b * c)
+
+Distributive property
+
+     a * (b + c) = a * b  + a * c
+
+Identities
+
+Rule:
+     a + a * b = a
+
+       ->  a * (1 + b)   ; A = A * 1 and distributive
+           a * 1         ; 1 = A + 1
+       ==  a
+
+
+Rule:
+     a + !a * b = a + b
+
+       ->  (a + a * b) + !a * b  ; A + AB = A
+            a + b(a + !a)        ; associative & distributive
+       ==   a + b                ; A + !A = 1, A * 1 = A
+          
+Rule:
+     (a + b) * (a + c) = a + b * c
+
+       ->  aa + ac + ab + bc  ; distributive + associative
+           a  + ac + ab + bc  ; A * A = 1
+                 a + ab + bc  ; A + AB = A (for a + ac)
+       ==             a + bc  ; repeated A + AB = A (for a + ab)
+
