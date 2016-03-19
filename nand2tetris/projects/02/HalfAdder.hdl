@@ -13,19 +13,9 @@ CHIP HalfAdder {
         carry;  // Left bit of a + b
 
     PARTS:
-      And(a=a, b=b, out=carry);
+      Or(a=a, b=b, out=x);
+      Nand(a=a, b=b, out=y);
 
-      Not(in=a, out=na);
-      Not(in=b, out=nb);
-      Nand(a=a, b=nb, out=s1);
-      Nand(a=na, b=b, out=s2);
-      Nand(a=s1, b=s2, out=sum);
-
-/*
-  a!b + !ab
-
-  !(a!b) nand !(!ab)
-  (a nand !b) nand (!a nand b)
-
-*/
+      And(a=x, b=y, out=sum);
+      Not(in=y, out=carry);
 }
