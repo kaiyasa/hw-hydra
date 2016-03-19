@@ -42,5 +42,31 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+      // set to input to 0x0000 if selected
+      Mux16(sel=zx, a=x, out=x1);
+      Mux16(sel=zy, a=y, out=y1);
+
+      // negate current input if selected
+      Not16(in=x1,  out=nx1);
+      Not16(in=y1,  out=ny1);
+      Mux16(sel=nx, a=x1, b=nx1, out=x2);
+      Mux16(sel=ny, a=y1, b=ny1, out=y2);
+
+      // perform operation
+      And16(a=x2,  b=y2,   out=rAnd);
+      Add16(a=x2,  b=y2,   out=rAdd);
+
+      // select proper resulting operation
+      Mux16(sel=f, a=rAnd, b=rAdd, out=rOut);
+
+      // negate output if selected, mark negative too
+      Not16(in=rOut, out=nOut);
+      Mux16(sel=no,  a=rOut, b=nOut, out=out, out[15]=ng,
+          out[0..7]=fOutLo, out[8..15]=fOutHi);
+
+      // detect if output is 0x0000 and mark
+      Or8Way(in=fOutLo, out=zr1);
+      Or8Way(in=fOutHi, out=zr2);
+      Or(a=zr1, b=zr2,      out=zr3);
+      Not(in=zr3, out=zr);
 }
