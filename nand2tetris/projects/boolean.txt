@@ -25,6 +25,11 @@ Distributive property
      a * (b + c) = a * b  + a * c
 
 Identities
+    a * b = !(!a + !b)
+    a + b = !(!a * !b)
+
+    a NAND b = !(a *  b)
+             =  !a + !b
 
 Rule:
      a + a * b = a
