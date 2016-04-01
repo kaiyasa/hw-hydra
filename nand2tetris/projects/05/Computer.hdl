@@ -19,5 +19,13 @@ CHIP Computer {
     IN reset;
 
     PARTS:
-    // Put your code here:
+      CPU(reset=reset, pc=pc, instruction=opcode,
+          writeM=load, address=dc,
+          inM=fromRAM, outM=toRAM);
+
+      // program memory
+      Memory(out=opcode, address=pc);
+
+      // data memory
+      Memory(out=fromRAM, in=toRAM, address=dc, load=load);
 }
