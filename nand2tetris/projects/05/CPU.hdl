@@ -53,10 +53,6 @@ CHIP CPU {
 
     PARTS:
       // Setup PC to run from 0+ until reset or branch
-      Not(out=next, out=notReset, in=reset);
-//      Not(out=notReset, in=reset);
-//      Or(out=change, a=reset, b=pcLoad);
-//      Not(out=next, in=change);
       PC(out[0..14]=pc, in=aOut, load=pcLoad, reset=reset, inc=true);
 
       // select A's input
@@ -75,7 +71,9 @@ CHIP CPU {
       Or16(out[0..14]=addressM, a=aOut);
 
       Register(out=aOut, in=aIn,    load=aLoad);
-      DRegister(out=dout, in=aluOut, load=instruction[4]);
+
+      And(out=dLoad, a=instruction[15], b=instruction[4]);
+      DRegister(out=dout, in=aluOut, load=dLoad);
 
       // select ALU's y value from A or M
       Mux16(out=yOut, sel=instruction[12], a=aOut, b=inM);
@@ -95,7 +93,7 @@ CHIP CPU {
       And(out=brlt, a=lt, b=instruction[2]);
       And(out=breq, a=eq, b=instruction[1]);
       And(out=brgt, a=gt, b=instruction[0]);
-      Or(out=tpc,    a=brlt, b=breq);
-      Or(out=branch, a=brgt, b=tpc);
-      And(out=pcLoad, a=branch, b=notReset);
+      Or(out=tpc1,    a=brlt, b=breq);
+      Or(out=tpc2, a=brgt, b=tpc1);
+      And(out=pcLoad, a=tpc2, b=instruction[15]);
 }
