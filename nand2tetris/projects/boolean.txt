@@ -28,8 +28,20 @@ Identities
     a * b = !(!a + !b)
     a + b = !(!a * !b)
 
-    a NAND b = !(a *  b)
-             =  !a + !b
+    a NAND b = !( a *  b)        a NOR b = !( a +  b)
+             =   !a + !b                 =  (!a * !b)
+             = !(!a NOR !b)              = !(!a NAND !b)
+
+
+Operation: XOR
+             a * !b + !a * b
+           1 + (!a*b + b*!a) + 1      ; A + 1 = A
+        a*!a + !a*b + b*!a + b!b      ; A * !A = 1
+        (a + b) * (!a + !b)           ; distribution * over +
+        (a + b) * !(!(!a + !b))       ; !!A = A
+    ==> (a + b) * !(a * b)            ; !(!A + !B) = A * B
+
+
 
 Rule:
      a + a * b = a
@@ -53,4 +65,30 @@ Rule:
            a  + ac + ab + bc  ; A * A = 1
                  a + ab + bc  ; A + AB = A (for a + ac)
        ==             a + bc  ; repeated A + AB = A (for a + ab)
+
+Relational view
+
+  AND ==> a * b = 1
+ NAND ==> a * b = 0     a * b != 1
+
+   OR ==> a + b = 1
+  NOR ==> a + b = 0     a + b != 1
+
+  XOR ==> a != b          ( a * !b) +  (!a *  b)
+                          ( a +  b) * !( a *  b)
+
+      ==> a  = b          ( a *  b) + (!a * !b)
+                          (!a +  b) * ( a + !b)
+
+          a <  b            !a *  b
+                          !( a + !b)
+
+          a >= b          !(!a *  b)
+                           ( a + !b)
+
+          a >  b             a * !b
+                          !(!a +  b)
+
+          a <= b          !( a * !b)
+                           (!a +  b)
 
