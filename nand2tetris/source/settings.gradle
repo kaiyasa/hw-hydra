@@ -1,0 +1,6 @@
+
+
+include ':Hack', ':Compilers', ':Simulators'
+include ':HackGUI', ':SimulatorsGUI'
+include ':BuiltInChips', ':BuiltInVMCode'
+include ':MainClasses'

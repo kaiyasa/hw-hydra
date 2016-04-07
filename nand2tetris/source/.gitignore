@@ -1,0 +1,10 @@
+.gradle
+BuiltInChips/build/
+BuiltInVMCode/build/
+Compilers/build/
+Hack/build/
+HackGUI/build/
+MainClasses/build/
+Simulators/build/
+SimulatorsGUI/build/
+
