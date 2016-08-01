@@ -91,6 +91,12 @@ project(':MainClasses') {
   dependencies {
     compile project(':HackGUI')
     compile project(':SimulatorsGUI')
+    runtime project(':BuiltInChips')
+    runtime project(':BuiltInVMCode')
+  }
+
+  applicationDistribution.from('src/main/resources/builtin/hdl') {
+      into 'builtInChips'
   }
 
   // define applications
